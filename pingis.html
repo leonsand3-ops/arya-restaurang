@@ -9,7 +9,7 @@
 <style>
   :root{ --p1:#19f0ff; --p2:#ff3df0; --bg0:#04060f; }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;width:100%;position:fixed;inset:0;overflow:hidden;overscroll-behavior:none;touch-action:none;
+  html,body{height:100%;width:100%;overflow:hidden;overscroll-behavior:none;
     background:#000;font-family:'Orbitron',system-ui,sans-serif;color:#fff;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
   #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#0a0f24,var(--bg0) 70%)}
   canvas{display:block;touch-action:none}
@@ -18,9 +18,11 @@
   #vig{position:fixed;inset:0;pointer-events:none;z-index:20;
     background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.5) 100%);mix-blend-mode:multiply}
 
-  .overlay{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  .overlay{position:fixed;inset:0;z-index:30;overflow-y:auto;-webkit-overflow-scrolling:touch;
     background:radial-gradient(ellipse at 50% 35%,rgba(10,16,40,.8),rgba(4,6,15,.95));backdrop-filter:blur(3px);
-    text-align:center;padding:24px;transition:opacity .35s ease}
+    transition:opacity .35s ease}
+  .sheet{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:34px 24px;box-sizing:border-box}
   .hidden{opacity:0;pointer-events:none}
   h1{font-weight:900;font-size:clamp(38px,8.5vw,96px);letter-spacing:.05em;line-height:.95;
     background:linear-gradient(90deg,var(--p1),#fff 50%,var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent;
@@ -60,6 +62,7 @@
 
 <!-- Menu -->
 <div class="overlay" id="menu">
+  <div class="sheet">
   <h1>NEON&nbsp;PINGIS</h1>
   <div class="sub">Slå tillbaka · Missa = poäng emot</div>
   <div class="modes">
@@ -80,15 +83,18 @@
     ⌨️ <b>Dator:</b> Spelare 1 (nere) <kbd>A</kbd><kbd>D</kbd> · Spelare 2 (uppe) <kbd>←</kbd><kbd>→</kbd> · eller musen i 1-spelarläge.<br>
     Först till 7 vinner &nbsp;·&nbsp; <kbd>P</kbd> paus &nbsp;·&nbsp; <kbd>Esc</kbd> meny
   </div>
+  </div>
 </div>
 
 <!-- Win -->
 <div class="overlay hidden" id="win">
+  <div class="sheet">
   <div class="sub">VINNARE</div>
   <div id="winName">SPELARE 1</div>
   <div id="winScore" class="sub" style="margin-top:12px"></div>
   <button class="mbtn one" id="againBtn" style="margin-top:26px;min-width:0">↻ SPELA IGEN</button>
   <button class="tg" id="menuBtn" style="margin-top:14px">☰ TILL MENYN</button>
+  </div>
 </div>
 
 <script>

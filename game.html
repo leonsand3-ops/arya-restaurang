@@ -13,7 +13,7 @@
     --bg0:#04060f; --bg1:#0a0f24;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;width:100%;position:fixed;inset:0;overflow:hidden;overscroll-behavior:none;touch-action:none;background:#000;font-family:'Orbitron',system-ui,sans-serif;color:#fff;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+  html,body{height:100%;width:100%;overflow:hidden;overscroll-behavior:none;background:#000;font-family:'Orbitron',system-ui,sans-serif;color:#fff;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
   #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,var(--bg1),var(--bg0) 70%)}
   canvas{display:block;touch-action:none}
   /* CRT overlay */
@@ -25,9 +25,11 @@
     background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,.5) 3px,rgba(0,0,0,0) 4px)}
 
   /* ---- Overlays (menu / win) ---- */
-  .overlay{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  .overlay{position:fixed;inset:0;z-index:30;overflow-y:auto;-webkit-overflow-scrolling:touch;
     background:radial-gradient(ellipse at 50% 35%,rgba(10,16,40,.78),rgba(4,6,15,.94));
-    backdrop-filter:blur(3px);text-align:center;padding:24px;transition:opacity .35s ease}
+    backdrop-filter:blur(3px);transition:opacity .35s ease}
+  .sheet{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:34px 24px;box-sizing:border-box}
   .hidden{opacity:0;pointer-events:none}
   h1{font-weight:900;font-size:clamp(40px,9vw,110px);letter-spacing:.06em;line-height:.95;
     background:linear-gradient(90deg,var(--p1),#fff 50%,var(--p2));
@@ -106,6 +108,7 @@
 
 <!-- Start menu -->
 <div class="overlay" id="menu">
+  <div class="sheet">
   <h1>ASTRO&nbsp;DUEL</h1>
   <div class="sub">Neon · 2-Player · Arena</div>
   <div class="panels">
@@ -134,14 +137,17 @@
     <span>Tryck <kbd>P</kbd> för paus · <kbd>R</kbd> ny match</span>
   </div>
   <div class="hint">Samla glödande ⚡ för sköld &nbsp;·&nbsp; väggarna studsar dig tillbaka<br><span style="opacity:.7">📱 På mobil gasar skeppen automatiskt — du styr bara svängning + skott</span></div>
+  </div>
 </div>
 
 <!-- Win screen -->
 <div class="overlay hidden" id="win">
+  <div class="sheet">
   <div class="sub">VINNARE</div>
   <div id="winName">SPELARE 1</div>
   <div id="winScore" class="sub" style="margin-top:14px"></div>
   <div class="start" id="againBtn">↻ SPELA IGEN</div>
+  </div>
 </div>
 
 <script>
